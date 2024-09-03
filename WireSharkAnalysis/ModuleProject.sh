@@ -13,7 +13,7 @@ function main() {
 
 # Function to count various types of packets in the pcap file
 function count_packets() {
-    local PcapFilePath="$1"  # Get the pcap file path from the function argument
+    PcapFilePath="$1"  # Get the pcap file path from the function argument
 
     # Use tshark to read the pcap file and count total packets
     Total_packetcount=$(tshark -r "$PcapFilePath" | wc -l)
@@ -32,7 +32,7 @@ function count_packets() {
 
 # Function to extract and display the top 5 source and destination IP addresses
 function top_ip_addresses() {
-    local pcap_file="$1"  # Get the pcap file path from the function argument
+     pcap_file="$1"  # Get the pcap file path from the function argument
 
     # Extract top 5 source IP addresses with packet counts
     # -T fields: specify output format as fields
@@ -40,10 +40,10 @@ function top_ip_addresses() {
     # sort | uniq -c: sort IPs and count occurrences
     # sort -nr: sort by count in numerical reverse order
     # head -n 5: get the top 5 results
-    local top_source_ips=$(tshark -r "$pcap_file" -T fields -e ip.src | sort | uniq -c | sort -nr | head -n 5)
+    top_source_ips=$(tshark -r "$pcap_file" -T fields -e ip.src | sort | uniq -c | sort -nr | head -n 5)
 
     # Extract top 5 destination IP addresses with packet counts
-    local top_destination_ips=$(tshark -r "$pcap_file" -T fields -e ip.dst | sort | uniq -c | sort -nr | head -n 5)
+    top_destination_ips=$(tshark -r "$pcap_file" -T fields -e ip.dst | sort | uniq -c | sort -nr | head -n 5)
 
     # Output the top 5 source IP addresses and their counts
     echo ""
